@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Portfolio - Cute Meowish</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+    }
+    h1, h2 {
+      margin: 0;
+      text-shadow: 0 0 10px #fff;
+    }
+    h1 {
+      font-size: 3rem;
+    }
+    h2 {
+      color: #ffc107;
+    }
+    .contact {
+      margin-top: 1rem;
+    }
+    .contact p {
+      margin: 0.2rem 0;
+    }
+    .resume-btn {
+      background: #ffc107;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+    .resume-btn:hover {
+      transform: scale(1.1);
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    .glow-img {
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+      max-height: 400px;
+      filter: drop-shadow(0 0 20px #0ff);
+      transform: rotateY(10deg);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg"></canvas>
+  <div class="container">
+    <h2>Web Developer</h2>
+    <h1>Cute Meowish</h1>
+    <button class="resume-btn">Download Resume</button>
+    <div class="contact">
+      <p>Email: meowish.000@gmail.com</p>
+      <p>Phone: 0123456789</p>
+      <p>Location: My Planet</p>
+    </div>
+  </div>
+  <img src="cat.png" alt="Glowing Cat" class="glow-img" />
+  <script>
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        dx: (Math.random() - 0.5) * 1,
+        dy: (Math.random() - 0.5) * 1
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0ff';
+      particles.forEach(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
