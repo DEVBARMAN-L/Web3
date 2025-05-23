@@ -32,3 +32,7 @@ button:hover {
   border-radius: 15px;
   padding: 15px;
 }
+
+td{
+    border: #00f2ff;
+}
